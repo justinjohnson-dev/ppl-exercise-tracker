@@ -6,21 +6,18 @@ const workoutLogSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
-    },
-    id: {
-        type: Number,
-        required: true,
-        unique: true
     },
     exercises: {
-        type: Object,
+        type: Array,
         required: true
     },
     userId: {
         type: Number,
         required: true
+    },
+    timestamp: {
+        type: Date, default: Date.now
     }
 });
 
-module.exports = mongoose.model('workout-log', workoutLogSchema);
+module.exports = mongoose.model('workoutlog', workoutLogSchema);
