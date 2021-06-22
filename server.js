@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -16,6 +17,8 @@ app.use((req, res, next) => {
 
 // CORS Middleware
 app.use(cors());
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.json());
 
 // DB connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -24,12 +27,18 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => console.log('DB Connected'));
 
 // endpoints
-app.use('/api/v1', require('./routes/api/crud'));
+app.use('/api/v1', require('./routes/api/workout'));
+app.use('/api/v1', require('./routes/api/exercise'));
+app.use('/api/v1', require('./routes/api/user'));
 
+// create static assets from react code for production only
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
 
-
-
-
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 // use port from environment variables for production
 const PORT = process.env.PORT || 5000;
