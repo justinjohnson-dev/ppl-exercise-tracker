@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 // exclusing dotenv config from production
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
