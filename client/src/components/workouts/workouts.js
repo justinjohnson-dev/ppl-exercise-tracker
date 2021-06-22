@@ -39,11 +39,11 @@ export default function Workouts(props) {
             })
     }, []);
 
-    function onClick(exercise) {
+    function onClick(id, exercise) {
         console.log(exercise)
         props.history.push({
             pathname: '/exercise',
-            state: { exercise: exercise, name: user },
+            state: { id: id, exercise: exercise, name: user, userId: props.location.state.userId },
         });
     }
 
@@ -52,7 +52,7 @@ export default function Workouts(props) {
             <h1 className={classes.center}>Hey, {user} What are you hitting today?</h1>
             <div className={classes.flexbox} >
                 {workouts.length != 0 && workouts.map(item => {
-                    return <Button onClick={() => onClick(item.id)} className={classes.button} key={item.id} variant="contained" color="primary">
+                    return <Button onClick={() => onClick(item.id, item.name)} className={classes.button} key={item.id} variant="contained" color="primary">
                         {item.name}
                     </Button>
                 })}

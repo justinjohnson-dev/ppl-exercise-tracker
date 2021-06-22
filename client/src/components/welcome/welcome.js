@@ -38,10 +38,10 @@ export default function Welcome(props) {
             })
     }, []);
 
-    function onClick(name) {
+    function onClick(name, id) {
         props.history.push({
             pathname: '/workouts',
-            state: { name: name },
+            state: { name: name, userId: id },
         });
     }
 
@@ -50,7 +50,7 @@ export default function Welcome(props) {
             <h1 className={classes.center}>Welcome Back!</h1>
             <div className={classes.flexbox} >
                 {users.length != 0 && users.map(item => {
-                    return <Button onClick={() => onClick(item.name)} className={classes.button} key={item.id} variant="contained" color="primary">
+                    return <Button onClick={() => onClick(item.name, item.id)} className={classes.button} key={item.id} variant="contained" color="primary">
                         {item.name}
                     </Button>
                 })}
